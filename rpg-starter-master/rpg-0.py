@@ -13,7 +13,7 @@ Make a Hero class to store the health and power of the hero, and make a Goblin c
 '''
 
 
-class Hero:
+class Character(object):  # Step 6:  Since Hero and Goblin have almost the exact attributes and methods, create a Character class that they inherit their attributes from
 
     def __init__(self, health, power):
 
@@ -29,24 +29,22 @@ class Hero:
         if self.health > 0:
             return True
 
-
-class Goblin:
-
-    def __init__(self, health, power):
-
-        self.health = health
-        self.power = power
-
-    def attack(self, enemy):
-
-        enemy.health -= self.power
-
-    def alive(self):
-
-        if self.health > 0:
-            return True
+    def print_status(self):
+        print(f"You have {self.health} health and {self.power} power.")
 
 
+class Hero(Character):
+    pass
+
+
+class Goblin(Character):
+
+    # For the goblin's health status, we want to say "The Goblin has" rather than "You Have"
+    def print_status(self):
+        print(f"The Goblin has {self.health} health and {self.power} power.")
+
+
+# Global Variables. Makes it easy to tinker with character values if need be.
 hero_health = 10
 hero_power = 5
 goblin_health = 6
@@ -61,11 +59,14 @@ def main():
     # while the_goblin.health > 0 and our_hero.health > 0:  Old while loop condition
     # New alive methods to check and see if they're both... alive
     while the_goblin.alive() and our_hero.alive():
+        # Step 5: Replace code for printing the health status of the hero and move it into a method called print_status and do the same for the Goblin
+            # print("You have %d health and %d power." %
+            #     (our_hero.health, our_hero.power))
+            # print("The goblin has %d health and %d power." %
+            #     (the_goblin.health, the_goblin.power))
+        our_hero.print_status()
+        the_goblin.print_status()
 
-        print("You have %d health and %d power." %
-              (our_hero.health, our_hero.power))
-        print("The goblin has %d health and %d power." %
-              (the_goblin.health, the_goblin.power))
         print()
         print("What do you want to do?")
         print("1. fight goblin")
@@ -80,7 +81,7 @@ def main():
             our_hero.attack(the_goblin)  # new attack code
             # the_goblin.health -= our_hero.power  # old attack code
             print("You do %d damage to the goblin." % our_hero.power)
-            if not the_goblin.alive():
+            if not the_goblin.alive():  # replaced goblin health check. if the goblin is not alive.
                 print("The goblin is dead.")
 
         elif user_input == "2":
@@ -99,7 +100,7 @@ def main():
             # our_hero.health -= the_goblin.power # old goblin attack
             the_goblin.attack(our_hero)  # new goblin attack method
             print("The goblin does %d damage to you." % the_goblin.power)
-            if not our_hero.alive():  # if our hero is not alive
+            if not our_hero.alive():  # replaced health check. if our hero is not alive.
                 print("You are dead.")
 
 
