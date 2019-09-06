@@ -24,6 +24,7 @@ class Character(object):  # Step 6:  Since Hero and Goblin have almost the exact
 
         enemy.health -= self.power
 
+    # Step 7: Move alive methods on Hero and Goblin into Character. This was done in Step 6 already. Whoops.
     def alive(self):
 
         if self.health > 0:
