@@ -29,6 +29,9 @@ class Goblin:
         self.health = health
         self.power = power
 
+    def attack(self, enemy):
+        enemy.health -= self.power
+
 
 hero_health = 10
 hero_power = 5
@@ -70,8 +73,10 @@ def main():
             print("Invalid input %r" % user_input)
 
         if the_goblin.health > 0:
+            # Step 3: Replace the goblin attack code with an attack method within goblin class
             # Goblin attacks hero
-            our_hero.health -= the_goblin.power
+            # our_hero.health -= the_goblin.power # old goblin attack
+            the_goblin.attack(our_hero)  # new goblin attack method
             print("The goblin does %d damage to you." % the_goblin.power)
             if our_hero.health <= 0:
                 print("You are dead.")
