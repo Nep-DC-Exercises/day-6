@@ -16,21 +16,35 @@ Make a Hero class to store the health and power of the hero, and make a Goblin c
 class Hero:
 
     def __init__(self, health, power):
+
         self.health = health
         self.power = power
 
     def attack(self, enemy):
+
         enemy.health -= self.power
+
+    def alive(self):
+
+        if self.health > 0:
+            return True
 
 
 class Goblin:
 
     def __init__(self, health, power):
+
         self.health = health
         self.power = power
 
     def attack(self, enemy):
+
         enemy.health -= self.power
+
+    def alive(self):
+
+        if self.health > 0:
+            return True
 
 
 hero_health = 10
@@ -43,8 +57,11 @@ the_goblin = Goblin(goblin_health, goblin_power)
 
 
 def main():
+    # Step 4
+    # while the_goblin.health > 0 and our_hero.health > 0:  Old while loop condition
+    # New alive methods to check and see if they're both... alive
+    while the_goblin.alive() and our_hero.alive():
 
-    while the_goblin.health > 0 and our_hero.health > 0:
         print("You have %d health and %d power." %
               (our_hero.health, our_hero.power))
         print("The goblin has %d health and %d power." %
@@ -56,29 +73,33 @@ def main():
         print("3. flee")
         print("> ",)
         user_input = input()
+
         if user_input == "1":
             # Step 2: Replace the hero attack code with an attack method within hero class
             # Hero attacks goblin
             our_hero.attack(the_goblin)  # new attack code
             # the_goblin.health -= our_hero.power  # old attack code
             print("You do %d damage to the goblin." % our_hero.power)
-            if the_goblin.health <= 0:
+            if not the_goblin.alive():
                 print("The goblin is dead.")
+
         elif user_input == "2":
             pass
+
         elif user_input == "3":
             print("Goodbye.")
             break
+
         else:
             print("Invalid input %r" % user_input)
 
-        if the_goblin.health > 0:
+        if the_goblin.alive():
             # Step 3: Replace the goblin attack code with an attack method within goblin class
             # Goblin attacks hero
             # our_hero.health -= the_goblin.power # old goblin attack
             the_goblin.attack(our_hero)  # new goblin attack method
             print("The goblin does %d damage to you." % the_goblin.power)
-            if our_hero.health <= 0:
+            if not our_hero.alive():  # if our hero is not alive
                 print("You are dead.")
 
 
